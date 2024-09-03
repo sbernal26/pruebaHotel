@@ -1,0 +1,272 @@
+CREATE DATABASE hotel;
+
+USE hotel;
+
+CREATE TABLE Hotel (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    ciudad VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE Tipo_Habitaciones (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    ocupacion_max INT NOT NULL
+);
+
+CREATE TABLE Habitacion (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    hotel_id INT,
+    tipo_habitaciones_id INT,
+    numero VARCHAR(50) NOT NULL,
+    precio DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (hotel_id) REFERENCES Hotel(id),
+    FOREIGN KEY (tipo_habitaciones_id) REFERENCES Tipo_Habitaciones(id)
+);
+
+CREATE TABLE Temporada (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    fecha_inicio_temp DATE NOT NULL,
+    fecha_fin_temp DATE NOT NULL
+);
+
+CREATE TABLE TemporadaPrecio (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    hotel_id INT,
+    tipo_habitaciones_id INT,
+    temporada_id INT,
+    precio_per_person DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (hotel_id) REFERENCES Hotel(id),
+    FOREIGN KEY (tipo_habitaciones_id) REFERENCES Tipo_Habitaciones(id),
+    FOREIGN KEY (temporada_id) REFERENCES Temporada(id)
+);
+
+CREATE TABLE Reservas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    habitacion_id INT,
+    fecha_inicio_res DATE NOT NULL,
+    fecha_fin_res DATE NOT NULL,
+    can_personas INT NOT NULL,
+    precio_total DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (habitacion_id) REFERENCES Habitacion(id)
+);
+
+
+
+INSERT INTO Hotel (nombre, ciudad) VALUES
+('Hotel Barranquilla', 'Barranquilla'),
+('Hotel Cali', 'Cali'),
+('Hotel Cartagena', 'Cartagena'),
+('Hotel Bogotá', 'Bogotá');
+
+
+INSERT INTO Tipo_Habitaciones (nombre, ocupacion_max) VALUES
+('Estándar', 4),
+('Premium', 4),
+('VIP', 6);
+
+
+-- Barranquilla
+INSERT INTO Habitacion (hotel_id, tipo_habitaciones_id, numero, precio) VALUES
+(1, 1, '101', 80.00), -- Estándar
+(1, 1, '102', 80.00), -- Estándar
+(1, 1, '103', 80.00), -- Estándar
+(1, 1, '104', 80.00), -- Estándar
+(1, 1, '105', 80.00), -- Estándar
+(1, 1, '106', 80.00), -- Estándar
+(1, 1, '107', 80.00), -- Estándar
+(1, 1, '108', 80.00), -- Estándar
+(1, 1, '109', 80.00), -- Estándar
+(1, 1, '110', 80.00), -- Estándar
+(1, 1, '111', 80.00), -- Estándar
+(1, 1, '112', 80.00), -- Estándar
+(1, 1, '113', 80.00), -- Estándar
+(1, 1, '114', 80.00), -- Estándar
+(1, 1, '115', 80.00), -- Estándar
+(1, 1, '116', 80.00), -- Estándar
+(1, 1, '117', 80.00), -- Estándar
+(1, 1, '118', 80.00), -- Estándar
+(1, 1, '119', 80.00), -- Estándar
+(1, 1, '120', 80.00), -- Estándar
+(1, 1, '121', 80.00), -- Estándar
+(1, 1, '122', 80.00), -- Estándar
+(1, 1, '123', 80.00), -- Estándar
+(1, 1, '124', 80.00), -- Estándar
+(1, 1, '125', 80.00), -- Estándar
+(1, 1, '126', 80.00), -- Estándar
+(1, 1, '127', 80.00), -- Estándar
+(1, 1, '128', 80.00), -- Estándar
+(1, 1, '129', 80.00), -- Estándar
+(1, 1, '130', 80.00), -- Estándar
+
+(1, 2, '201', 120.00), -- Premium
+(1, 2, '202', 120.00), -- Premium
+(1, 2, '203', 120.00); -- Premium
+
+
+-- Cali
+INSERT INTO Habitacion (hotel_id, tipo_habitaciones_id, numero, precio) VALUES
+(2, 2, '301', 130.00), -- Premium
+(2, 2, '302', 130.00), -- Premium
+(2, 2, '303', 130.00), -- Premium
+(2, 2, '304', 130.00), -- Premium
+(2, 2, '305', 130.00), -- Premium
+(2, 2, '306', 130.00), -- Premium
+(2, 2, '307', 130.00), -- Premium
+(2, 2, '308', 130.00), -- Premium
+(2, 2, '309', 130.00), -- Premium
+(2, 2, '310', 130.00), -- Premium
+(2, 2, '311', 130.00), -- Premium
+(2, 2, '312', 130.00), -- Premium
+(2, 2, '313', 130.00), -- Premium
+(2, 2, '314', 130.00), -- Premium
+(2, 2, '315', 130.00), -- Premium
+(2, 2, '316', 130.00), -- Premium
+(2, 2, '317', 130.00), -- Premium
+(2, 2, '318', 130.00), -- Premium
+(2, 2, '319', 130.00), -- Premium
+(2, 2, '320', 130.00), -- Premium
+
+(2, 3, '401', 180.00), -- VIP
+(2, 3, '402', 180.00); -- VIP
+
+
+
+-- Cartagena
+INSERT INTO Habitacion (hotel_id, tipo_habitaciones_id, numero, precio) VALUES
+(3, 1, '101', 85.00), -- Estándar
+(3, 1, '102', 85.00), -- Estándar
+(3, 1, '103', 85.00), -- Estándar
+(3, 1, '104', 85.00), -- Estándar
+(3, 1, '105', 85.00), -- Estándar
+(3, 1, '106', 85.00), -- Estándar
+(3, 1, '107', 85.00), -- Estándar
+(3, 1, '108', 85.00), -- Estándar
+(3, 1, '109', 85.00), -- Estándar
+(3, 1, '110', 85.00), -- Estándar
+
+(3, 2, '201', 125.00); -- Premium
+
+
+
+-- Bogotá
+INSERT INTO Habitacion (hotel_id, tipo_habitaciones_id, numero, precio) VALUES
+(4, 1, '101', 90.00), -- Estándar
+(4, 1, '102', 90.00), -- Estándar
+(4, 1, '103', 90.00), -- Estándar
+(4, 1, '104', 90.00), -- Estándar
+(4, 1, '105', 90.00), -- Estándar
+(4, 1, '106', 90.00), -- Estándar
+(4, 1, '107', 90.00), -- Estándar
+(4, 1, '108', 90.00), -- Estándar
+(4, 1, '109', 90.00), -- Estándar
+(4, 1, '110', 90.00), -- Estándar
+(4, 1, '111', 90.00), -- Estándar
+(4, 1, '112', 90.00), -- Estándar
+(4, 1, '113', 90.00), -- Estándar
+(4, 1, '114', 90.00), -- Estándar
+(4, 1, '115', 90.00), -- Estándar
+(4, 1, '116', 90.00), -- Estándar
+(4, 1, '117', 90.00), -- Estándar
+(4, 1, '118', 90.00), -- Estándar
+(4, 1, '119', 90.00), -- Estándar
+(4, 1, '110', 90.00), -- Estándar
+
+(4, 2, '201', 130.00), -- Premium
+(4, 2, '202', 130.00), -- Premium
+(4, 2, '203', 130.00), -- Premium
+(4, 2, '204', 130.00), -- Premium
+(4, 2, '205', 130.00), -- Premium
+(4, 2, '206', 130.00), -- Premium
+(4, 2, '207', 130.00), -- Premium
+(4, 2, '208', 130.00), -- Premium
+(4, 2, '209', 130.00), -- Premium
+(4, 2, '210', 130.00), -- Premium
+(4, 2, '211', 130.00), -- Premium
+(4, 2, '212', 130.00), -- Premium
+(4, 2, '213', 130.00), -- Premium
+(4, 2, '214', 130.00), -- Premium
+(4, 2, '215', 130.00), -- Premium
+(4, 2, '216', 130.00), -- Premium
+(4, 2, '217', 130.00), -- Premium
+(4, 2, '218', 130.00), -- Premium
+(4, 2, '219', 130.00), -- Premium
+(4, 2, '220', 130.00), -- Premium
+
+(4, 3, '301', 200.00), -- VIP
+(4, 3, '302', 200.00); -- VIP
+
+INSERT INTO Temporada (nombre, fecha_inicio_temp, fecha_fin_temp) VALUES
+('Baja', '2024-01-01', '2024-03-31'),
+('Media', '2024-04-01', '2024-06-30'),
+('Alta', '2024-07-01', '2024-08-31'),
+('Muy Alta', '2024-12-01', '2024-12-31');
+
+
+-- Barranquilla
+INSERT INTO TemporadaPrecio (hotel_id, tipo_habitaciones_id, temporada_id, precio_per_person) VALUES
+(1, 1, 1, 20.00), -- Estándar en Baja
+(1, 1, 2, 25.00), -- Estándar en Media
+(1, 1, 3, 30.00), -- Estándar en Alta
+(1, 1, 4, 35.00), -- Estándar en Muy Alta
+(1, 2, 1, 30.00), -- Premium en Baja
+(1, 2, 2, 35.00), -- Premium en Media
+(1, 2, 3, 40.00), -- Premium en Alta
+(1, 2, 4, 45.00); -- Premium en Muy Alta
+
+-- Cali
+INSERT INTO TemporadaPrecio (hotel_id, tipo_habitaciones_id, temporada_id, precio_per_person) VALUES
+(2, 2, 1, 32.00), -- Premium en Baja
+(2, 2, 2, 37.00), -- Premium en Media
+(2, 2, 3, 42.00), -- Premium en Alta
+(2, 2, 4, 47.00), -- Premium en Muy Alta
+(2, 3, 1, 45.00), -- VIP en Baja
+(2, 3, 2, 50.00), -- VIP en Media
+(2, 3, 3, 55.00), -- VIP en Alta
+(2, 3, 4, 60.00); -- VIP en Muy Alta
+
+-- Cartagena
+INSERT INTO TemporadaPrecio (hotel_id, tipo_habitaciones_id, temporada_id, precio_per_person) VALUES
+(3, 1, 1, 22.00), -- Estándar en Baja
+(3, 1, 2, 27.00), -- Estándar en Media
+(3, 1, 3, 33.00), -- Estándar en Alta
+(3, 1, 4, 38.00), -- Estándar en Muy Alta
+(3, 2, 1, 35.00), -- Premium en Baja
+(3, 2, 2, 40.00), -- Premium en Media
+(3, 2, 3, 45.00), -- Premium en Alta
+(3, 2, 4, 50.00); -- Premium en Muy Alta
+
+-- Bogotá
+INSERT INTO TemporadaPrecio (hotel_id, tipo_habitaciones_id, temporada_id, precio_per_person) VALUES
+(4, 1, 1, 25.00), -- Estándar en Baja
+(4, 1, 2, 30.00), -- Estándar en Media
+(4, 1, 3, 35.00), -- Estándar en Alta
+(4, 1, 4, 40.00), -- Estándar en Muy Alta
+(4, 2, 1, 35.00), -- Premium en Baja
+(4, 2, 2, 40.00), -- Premium en Media
+(4, 2, 3, 45.00), -- Premium en Alta
+(4, 2, 4, 50.00), -- Premium en Muy Alta
+(4, 3, 1, 50.00), -- VIP en Baja
+(4, 3, 2, 55.00), -- VIP en Media
+(4, 3, 3, 60.00), -- VIP en Alta
+(4, 3, 4, 65.00); -- VIP en Muy Alta
+
+-- Barranquilla
+INSERT INTO Reservas (habitacion_id, fecha_inicio_res, fecha_fin_res, can_personas, precio_total) VALUES
+(1, '2024-09-01', '2024-09-07', 2, 140.00), -- Estándar
+(2, '2024-09-05', '2024-09-10', 4, 160.00), -- Estándar
+(201, '2024-09-01', '2024-09-07', 2, 240.00), -- Premium
+(202, '2024-09-10', '2024-09-15', 4, 300.00); -- Premium
+
+-- Cali
+INSERT INTO Reservas (habitacion_id, fecha_inicio_res, fecha_fin_res, can_personas, precio_total) VALUES
+(301, '2024-09-01', '2024-09-07', 4, 312.00), -- Premium
+(302, '2024-09-10', '2024-09-15', 6, 370.00), -- Premium
+(401, '2024-09-01', '2024-09-07', 6, 540.00), -- VIP
+(402, '2024-09-10', '2024-09-15', 6, 600.00); -- VIP
+
+-- Cartagena
+INSERT INTO Reservas (habitacion_id, fecha_inicio_res, fecha_fin_res, can_personas, precio_total) VALUES
+(101, '2024-09-01', '2024-09-07', 4, 176.00), -- Estándar
+(201, '2024-09-10', '2024-09-15', 6, 210.00); -- Premium
